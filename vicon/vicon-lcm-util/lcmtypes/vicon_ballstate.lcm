@@ -1,0 +1,11 @@
+// Note: this file was automatically generated using the
+// CoordinateFrame.generateLCMType() method.
+package vicon;
+struct vicon_ballstate
+{
+  int64_t timestamp;
+
+  double x;
+  double y;
+  double z;
+}
