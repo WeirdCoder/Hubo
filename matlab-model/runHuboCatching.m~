@@ -3,6 +3,12 @@ function runHuboCatching()
 
 r1 = HuboBiped();
 r2 = ViconBall();
+fk = ForwardKin(r1);
+
+%Filter out Rotational Coordinates
+simo1 = SIMOSplitter(12,[1 , 3 , 6,9]);
+miso1 = MISOJoiner();
+
 
 
 %Initialize all modules
