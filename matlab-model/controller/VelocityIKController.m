@@ -18,7 +18,7 @@ classdef VelocityIKController < MIMODrakeSystem
     methods
         function obj = VelocityIKController(r)
             typecheck(r,'TimeSteppingRigidBodyManipulator');
-            numQ = r.getDOF; %Get number of q (Position Only)   Replace with getNumPositions() when it is available for TimeStepping RigidBodyManipulator
+            numQ = r.getNumDOF; %Get number of q (Position Only)   Replace with getNumPositions() when it is available for TimeStepping RigidBodyManipulator
             output_frame = MultiCoordinateFrame.constructFrame({CoordinateFrame('VelIKCtrlOutput_qdot_des',numQ,'q')}); %TODO Velocity Control Output Frame
             input_frame = MultiCoordinateFrame({CoordinateFrame('VelIKCtrlInput_xdot_des',3,'x'),r.getStateFrame()}); %TODO setInputFrame
             obj@MIMODrakeSystem(0,0,input_frame,output_frame,true,true)
@@ -34,8 +34,8 @@ classdef VelocityIKController < MIMODrakeSystem
         function qdot=mimoOutput(obj,t,~,varargin)        
             xdot_des = varargin{1};
             q = varargin{2};
-            kinSol = obj.doKinematics(q,false,false);
-            [x,J] = obj.ForwardKin(kinSol,obj.targetEndEffector,obj.pts,obj.rotType); %Find Jacobian TODO Find pts
+            kinSol = obj.robot.doKinematics(q,false,false);
+            [x,J] = obj.robot.forwardKin(kinSol,obj.targetEndEffector,obj.pts,obj.rotType); %Find Jacobian TODO Find pts
             J_pinv = pinv(J); %Find Inverse of Jacobian (Pseudo)
             qdot = J_pinv*xdot_des;
         end

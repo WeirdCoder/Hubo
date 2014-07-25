@@ -1,0 +1,56 @@
+Path 4.7.03: Matlab Link
+4 row/cols, 16 non-zeros, 100.00% dense.
+
+Could not open options file: path.opt
+Using defaults.
+Path 4.7.03 (Mon Feb 27 19:48:03 2012)
+Written by Todd Munson, Steven Dirkse, and Michael Ferris
+
+
+INITIAL POINT STATISTICS
+Maximum of X. . . . . . . . . .  0.0000e+00 var: (x[    1])
+Maximum of F. . . . . . . . . .  6.1875e-01 eqn: (f[    2])
+Maximum of Grad F . . . . . . .  1.4137e+01 eqn: (f[    2])
+                                            var: (x[    2])
+
+INITIAL JACOBIAN NORM STATISTICS
+Maximum Row Norm. . . . . . . .  1.4296e+01 eqn: (f[    2])
+Minimum Row Norm. . . . . . . .  2.4671e+00 eqn: (f[    4])
+Maximum Column Norm . . . . . .  1.4296e+01 var: (x[    2])
+Minimum Column Norm . . . . . .  2.4671e+00 var: (x[    4])
+
+Crash Log
+major  func  diff  size  residual    step       prox   (label)
+    0     0             1.9208e-03             0.0e+00 (f[    4])
+    1     1     1     1 0.0000e+00  1.0e+00    0.0e+00 (f[    1])
+
+Major Iteration Log
+major minor  func  grad  residual    step  type prox    inorm  (label)
+    0     0     2     2 0.0000e+00           I 0.0e+00 0.0e+00 (f[    1])
+
+FINAL STATISTICS
+Inf-Norm of Complementarity . .  0.0000e+00 eqn: (f[    1])
+Inf-Norm of Normal Map. . . . .  0.0000e+00 eqn: (f[    1])
+Inf-Norm of Minimum Map . . . .  0.0000e+00 eqn: (f[    1])
+Inf-Norm of Fischer Function. .  0.0000e+00 eqn: (f[    1])
+Inf-Norm of Grad Fischer Fcn. .  0.0000e+00 eqn: (f[    1])
+Two-Norm of Grad Fischer Fcn. .  0.0000e+00
+
+FINAL POINT STATISTICS
+Maximum of X. . . . . . . . . .  7.6921e-04 var: (x[    4])
+Maximum of F. . . . . . . . . .  6.1880e-01 eqn: (f[    2])
+Maximum of Grad F . . . . . . .  1.4137e+01 eqn: (f[    2])
+                                            var: (x[    2])
+
+ ** EXIT - solution found.
+
+Major Iterations. . . . 0
+Minor Iterations. . . . 0
+Restarts. . . . . . . . 0
+Crash Iterations. . . . 1
+Gradient Steps. . . . . 0
+Function Evaluations. . 2
+Gradient Evaluations. . 2
+Basis Time. . . . . . . 0.000000
+Total Time. . . . . . . 0.000000
+Residual. . . . . . . . 0.000000e+00

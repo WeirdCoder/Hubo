@@ -21,10 +21,10 @@ classdef PIController < MIMODrakeSystem
             % controller.
             % @param I the integrational constant or matrix of the
             % controller.
+            input_frame = MultiCoordinateFrame({CoordinateFrame('x_des',dim,'x'),CoordinateFrame('x_curr',dim,'x')});
+            output_frame = MultiCoordinateFrame.constructFrame({CoordinateFrame('xdot_des',dim/2,'x')});
+            obj@MIMODrakeSystem(0,0,input_frame,output_frame,true,true);
             obj.dim = dim;
-            output_frame = MultiCoordinateFrame({CoordinateFrame('x_des',dim,'x'),CoordinateFrame('x_curr',dim,'x')});
-            input_frame = MultiCoordinateFrame.constructCorrdinateFrame(CoordinateFrame('xdot_des',dim/2,'x'));
-            obj@MIMODrakeSystem(0,0,input_frame,output_frame,true,true)
             obj.P = P;
             obj.I = I;
         end

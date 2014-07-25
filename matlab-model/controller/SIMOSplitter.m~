@@ -27,10 +27,9 @@ classdef SIMOSplitter < MIMODrakeSystem
         function varargout=mimoOutput(obj,~,~,varargin)        
             x = varargin{1};
             out_dims_size = size(obj.out_dims);
-            varargout = [];
             for i = 1:(out_dims_size(2)/2)
                 temp_result = x(obj.out_dims(2*i-1):obj.out_dims(2*i));
-                varargout{i} = temp_result;
+                varargout(i) = temp_result;
             end
             
         end

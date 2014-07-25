@@ -28,9 +28,9 @@ classdef ForwardKin < MIMODrakeSystem
             obj.pts =  mean(endEff_pts,2);
         end
         function x=mimoOutput(obj,t,~,varargin)        
-            q = varargin;
-            kinSol = obj.doKinematics(q,false,false);
-            [x,J] = obj.ForwardKin(kinSol,obj.targetEndEffector,obj.pts,obj.rotType); 
+            q = varargin{1};
+            kinSol = obj.robot.doKinematics(q,false,false);
+            [x, J] = obj.robot.forwardKin(kinSol,obj.targetEndEffector,obj.pts,obj.rotType); 
         end
     end
 end

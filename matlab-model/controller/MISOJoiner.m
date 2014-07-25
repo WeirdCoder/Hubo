@@ -9,27 +9,28 @@ classdef MISOJoiner < MIMODrakeSystem
     end
     methods
         function obj = MISOJoiner(input_frames)
-            typecheck(input_frames,'cells')
+            typecheck(input_frames,'cell');
             input_frame = MultiCoordinateFrame(input_frames);
             numOut = 0;
             numInFrame = size(input_frames);
-            for i = 1:(numInFrame(2))
-                input_size = size(input_frames(i).getCoordinateNames());
+            for i = 1:(max(numInFrame))
+                frame = input_frames{i};
+                input_size = size(frame.getCoordinateNames());
                 numOut = numOut + input_size(1);
                 
             end
-            output_frame = MultiCoordinateFrame.constructFrame(CoordinateFrame('output',numOut,'y'));
+            output_frame = MultiCoordinateFrame.constructFrame({CoordinateFrame('output',numOut,'y')});
             obj@MIMODrakeSystem(0,0,input_frame,output_frame,true, true);
-            obj.numIneFrame = numInFrame(2)
+            obj.numInFrame = max(numInFrame);
         end
         function yout=mimoOutput(obj,t,~,varargin)        
             yout = [];
             x = 1;
             for i = 1:obj.numInFrame
-                InFrame = varargin(i);
+                InFrame = varargin{i};
                 InSize = size(InFrame);
                 for j  = 1:InSize(1)
-                    yout(x) = varargin(InFrame(j));
+                    yout{x} = InFrame(j);
                 end
             end
             
