@@ -62,24 +62,20 @@ outs(1).to_input = 1;
 sys_input_frame = sys.getInputFrame().frame;
 sysHand = sysHand.setOutputFrame(MultiCoordinateFrame.constructFrame({sys_input_frame{2}}));
 
-output_select(1).system = 2;
-output_select(1).output = sysHand.getStateFrame();
 sys_output_frame = sys.getOutputFrame().frame;
 sysHand = sysHand.setInputFrame(MultiCoordinateFrame.constructFrame({sys_output_frame{2}}));
 
 
-sys = mimoFeedback(sysHand,sys,ins,outs,[],output_select);
+sys = mimoFeedback(sysHand,sys,ins,outs,[],[]);
 
 clear ins outs input_select output_select;
 ins(1).from_output = 1;
 ins(1).to_input = 1;
 
-output_select(1).system = 2;
-output_select(1).output = sysBall.getStateFrame();
 sys_input_frame = sys.getInputFrame().frame;
 sysBall = sysBall.setOutputFrame(MultiCoordinateFrame.constructFrame({ sys_input_frame{1}}));
 
-sys = mimoCascade(sysBall,sys,ins,[],output_select);
+sys = mimoCascade(sysBall,sys,ins,[],[]);
 
 
 
