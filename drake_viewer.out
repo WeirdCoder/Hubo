@@ -1,0 +1,12 @@
+BOT_VIEWER_PRETTIER: 0
+Using X Visual 0x1dd
+loading new robot with 30 links
+Warning: Mesh /home/alexc89/Desktop/Hubo/urdf/meshes/Body_Torso_vis.dae ignored because it does not have extension .obj (nor can I find a juxtaposed file with a .obj extension)
+Warning: Mesh /home/alexc89/Desktop/Hubo/urdf/meshes/Body_Head.stl ignored because it does not have extension .obj (nor can I find a juxtaposed file with a .obj extension)
+Warning: Mesh /home/alexc89/Desktop/Hubo/urdf/meshes/Body_RSP_vis.dae ignored because it does not have extension .obj (nor can I find a juxtaposed file with a .obj extension)
+Warning: Mesh /home/alexc89/Desktop/Hubo/urdf/meshes/Body_Hip_vis.dae ignored because it does not have extension .obj (nor can I find a juxtaposed file with a .obj extension)
+Warning: Mesh /home/alexc89/Desktop/Hubo/urdf/meshes/Body_LHY.stl ignored because it does not have extension .obj (nor can I find a juxtaposed file with a .obj extension)
+Warning: Mesh /home/alexc89/Desktop/Hubo/urdf/meshes/Body_LKN.dae ignored because it does not have extension .obj (nor can I find a juxtaposed file with a .obj extension)
+Warning: Mesh /home/alexc89/Desktop/Hubo/urdf/meshes/Body_RHY.dae ignored because it does not have extension .obj (nor can I find a juxtaposed file with a .obj extension)
+Warning: Mesh /home/alexc89/Desktop/Hubo/urdf/meshes/Body_RKN_vis.dae ignored because it does not have extension .obj (nor can I find a juxtaposed file with a .obj extension)
+successfully loaded model

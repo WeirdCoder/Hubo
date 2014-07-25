@@ -15,7 +15,7 @@ classdef ForwardKin < MIMODrakeSystem
     methods
         function obj = ForwardKin(r)
             typecheck(r,'TimeSteppingRigidBodyManipulator');
-            output_frame = MultiCoordinateFrame.constructFrame({CoordinateFrame('EffX',12,'x')}); 
+            output_frame = MultiCoordinateFrame.constructFrame({CoordinateFrame('EffX',3,'x')}); 
             input_frame = MultiCoordinateFrame.constructFrame({r.getStateFrame()}); 
             obj@MIMODrakeSystem(0,0,input_frame,output_frame,true,true)
             obj.robot = r;
@@ -31,7 +31,7 @@ classdef ForwardKin < MIMODrakeSystem
             q = varargin{1};
             kinSol = obj.robot.doKinematics(q,false,false);
             [x, J] = obj.robot.forwardKin(kinSol,obj.targetEndEffector,obj.pts,obj.rotType); 
-            x(7:9) = J*q(obj.robot.getNumDOF+1:2*obj.robot.getNumDOF);
+            x{4:6} = J();
         end
     end
 end
