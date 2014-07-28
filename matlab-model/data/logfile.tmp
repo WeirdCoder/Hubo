@@ -1,0 +1,61 @@
+Path 4.7.03: Matlab Link
+53 row/cols, 2097 non-zeros, 74.65% dense.
+
+Could not open options file: path.opt
+Using defaults.
+Path 4.7.03 (Mon Feb 27 19:48:03 2012)
+Written by Todd Munson, Steven Dirkse, and Michael Ferris
+
+
+INITIAL POINT STATISTICS
+Maximum of X. . . . . . . . . .  0.0000e+00 var: (x[    1])
+Maximum of F. . . . . . . . . .  5.0428e-01 eqn: (f[    4])
+Maximum of Grad F . . . . . . .  1.3414e+01 eqn: (f[    4])
+                                            var: (x[    4])
+
+INITIAL JACOBIAN NORM STATISTICS
+Maximum Row Norm. . . . . . . .  1.5605e+01 eqn: (f[   24])
+Minimum Row Norm. . . . . . . .  5.7356e-02 eqn: (f[    6])
+Maximum Column Norm . . . . . .  1.5540e+01 var: (x[    5])
+Minimum Column Norm . . . . . .  1.3916e+00 var: (x[    1])
+
+Crash Log
+major  func  diff  size  residual    step       prox   (label)
+    0     0             3.7096e-01             0.0e+00 (f[   35])
+    1     1    35    21 8.2798e-02  1.0e+00    3.7e-03 (f[   53])
+    2     2    22    33 1.0730e-02  1.0e+00    8.3e-04 (f[   34])
+    3     9     4    33 8.7571e-03  6.9e-02    1.1e-04 (f[   34])
+pn_search terminated: no basis change.
+
+Major Iteration Log
+major minor  func  grad  residual    step  type prox    inorm  (label)
+    0     0    10     4 8.7571e-03           I 8.8e-05 5.1e-03 (f[   34])
+    1    10    11     5 4.4600e-06  1.0e+00 SM 3.5e-05 2.0e-06 (f[    8])
+    2     9    12     6 2.5018e-07  1.0e+00 SO 4.5e-07 2.2e-07 (f[   36])
+
+FINAL STATISTICS
+Inf-Norm of Complementarity . .  1.1029e-07 eqn: (f[   36])
+Inf-Norm of Normal Map. . . . .  1.1029e-07 eqn: (f[   36])
+Inf-Norm of Minimum Map . . . .  1.1029e-07 eqn: (f[   36])
+Inf-Norm of Fischer Function. .  2.2058e-07 eqn: (f[   36])
+Inf-Norm of Grad Fischer Fcn. .  6.3523e-07 eqn: (f[   36])
+Two-Norm of Grad Fischer Fcn. .  1.3021e-06
+
+FINAL POINT STATISTICS
+Maximum of X. . . . . . . . . .  2.3644e-01 var: (x[    6])
+Maximum of F. . . . . . . . . .  5.0430e-01 eqn: (f[    4])
+Maximum of Grad F . . . . . . .  1.3414e+01 eqn: (f[    4])
+                                            var: (x[    4])
+
+ ** EXIT - solution found.
+
+Major Iterations. . . . 2
+Minor Iterations. . . . 19
+Restarts. . . . . . . . 0
+Crash Iterations. . . . 3
+Gradient Steps. . . . . 0
+Function Evaluations. . 12
+Gradient Evaluations. . 6
+Basis Time. . . . . . . 0.000000
+Total Time. . . . . . . 0.020000
+Residual. . . . . . . . 2.501766e-07

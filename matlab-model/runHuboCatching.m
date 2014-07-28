@@ -7,7 +7,7 @@ r1 = HuboBiped();
 r2 = ViconBall();
 
 r = RigidBodyManipulator([],options);
-r = r.addRobotFromURDF('/home/phil/Hubo2/Hubo/vicon/matlab-model/ball.urdf',[0;0;0],[0;0;0],options);
+r = r.addRobotFromURDF('../vicon/matlab-model/ball.urdf',[0;0;0],[0;0;0],options);
 r = r.addRobotFromURDF('urdf/hubo_minimal_contact.urdf',[0;0;0],[0;0;0],options);
 
 v = r.constructVisualizer;
@@ -26,7 +26,7 @@ misoBall = MISOJoiner(simoBall.getOutputFrame().frame);
 
 simoJoints = SIMOSplitter(34,[1, 6, 7,34]);
 %Primary Trajectory Merging controller
-TrajControl = QPController(0.01); %UnTuned.
+TrajControl = HuboQPController(0.01); %UnTuned.
 
 %Inverse Kinectmatic to joint vels.
 ik = VelocityIKController(r1);
@@ -90,10 +90,10 @@ sys = mimoCascade(sysBall,sys,ins,[],[]);
 load hubo_fp
 r1.setInitialState(xstar);
 load hubo_catching.mat
-x0(13:80) = xstar
+%x0(13:80) = xstar;
 %% Simulate
-[ytraj, xtraj] = sys.simulate([0 1],x0);
-
+[ytraj, xtraj] = sys.simulate([0 0.58],x0);
+xtraj = xtraj(1:6,13:47,7:12,48:80);
 %% Visualize
 v = v.setInputFrame(sys.getStateFrame())
 playback(v,xtraj,struct('slider',true));

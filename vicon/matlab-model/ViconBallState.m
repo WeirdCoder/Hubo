@@ -14,7 +14,7 @@ classdef ViconBallState < LCMCoordinateFrame
       obj.aggregator = lcm.lcm.MessageAggregator();
       lc.subscribe('ViconBall', obj.aggregator);
       obj.setLCMCoder(ViconBallStateEncoder(obj.getCoordinateNames()));
-      obj.x = [0,0,0,0,0,0,0,0,0,0,0,0];
+      obj.x = zeros(12,1);
       obj.t = 0;
     end
     function chan = defaultChan(obj)

@@ -1,4 +1,4 @@
-classdef QPController < MIMODrakeSystem
+classdef HuboQPController < MIMODrakeSystem
     %Non Hubo-specific module
     % @param input_frames given cells of frames as input{}.
     % @retval joined output from the input.
@@ -14,7 +14,7 @@ classdef QPController < MIMODrakeSystem
         lb
     end
     methods
-        function obj = QPController(dt)
+        function obj = HuboQPController(dt)
             input_frame = MultiCoordinateFrame({CoordinateFrame('x_des',6,'x'),CoordinateFrame('x_curr',6,'x')});
             output_frame = MultiCoordinateFrame.constructFrame({CoordinateFrame('xdot_des',3,'x')});
             obj@MIMODrakeSystem(0,0,input_frame,output_frame,true, true);
@@ -33,7 +33,7 @@ classdef QPController < MIMODrakeSystem
             obj.B(1:6) = x_hand;
             obj.B(7:12) = x_ball;
             [x,fval,exitflag,output] = quadprog(obj.H,obj.f,[],[],obj.A,obj.B);
-            xdot_des = x(13:15);
+            xdot_des = x(16:18);
         end
     end
 end
