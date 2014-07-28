@@ -1,9 +1,16 @@
 function runHuboCatching()
 %% Begin initialize robot models
- 
+
+options.floating = true;
 
 r1 = HuboBiped();
 r2 = ViconBall();
+
+r = RigidBodyManipulator([],options);
+r = r.addRobotFromURDF('/home/phil/Hubo2/Hubo/vicon/matlab-model/ball.urdf',[0;0;0],[0;0;0],options);
+r = r.addRobotFromURDF('urdf/hubo_minimal_contact.urdf',[0;0;0],[0;0;0],options);
+
+v = r.constructVisualizer;
 
 %% Initialize all modules
 %Robot Hand
@@ -88,5 +95,7 @@ x0(13:80) = xstar
 [ytraj, xtraj] = sys.simulate([0 1],x0);
 
 %% Visualize
+v = v.setInputFrame(sys.getStateFrame())
+playback(v,xtraj,struct('slider',true));
 
 end
