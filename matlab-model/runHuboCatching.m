@@ -83,7 +83,7 @@ sys = mimoCascade(sysBall,sys,ins,[],[]);
 load hubo_fp
 r1.setInitialState(xstar);
 load hubo_catching.mat
-
+x0(13:80) = xstar
 %% Simulate
 [ytraj, xtraj] = sys.simulate([0 1],x0);
 
