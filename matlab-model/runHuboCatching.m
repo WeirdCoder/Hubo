@@ -29,10 +29,10 @@ ik = VelocityIKController(r1);
 clear ins outs input_select output_select;
 
 
-r1 = r1.pdcontrol(eye(r1.getNumInputs),eye(r1.getNumInputs)); %Velocity Controlled.
+velocitypdr1 = r1.pdcontrol(eye(r1.getNumInputs),eye(r1.getNumInputs)); %Velocity Controlled.
 %Cascade Controllers
 
-sysHand = mimoCascade(r1,fk);%Hubo hand and ForwardK
+sysHand = mimoCascade(velocitypdr1,fk);%Hubo hand and ForwardK
 sysHand = sysHand.setOutputFrame(simoHand.getInputFrame());
 sysHand = mimoCascade(sysHand,simoHand);
 misoHand = misoHand.setInputFrame(sysHand.getOutputFrame);
@@ -79,11 +79,13 @@ sys = mimoCascade(sysBall,sys,ins,[],[]);
 
 
 
-%% Initialize X0
+%% Initialize Xload hubo_catching.mat;
+load hubo_fp
+r1.setInitialState(xstar);
 load hubo_catching.mat
 
 %% Simulate
-xtraj = sys.simulate([0 1]);
+[ytraj, xtraj] = sys.simulate([0 1],x0);
 
 %% Visualize
 

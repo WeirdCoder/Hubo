@@ -24,17 +24,16 @@ classdef MISOJoiner < MIMODrakeSystem
             obj.numInFrame = max(numInFrame);
         end
         function yout=mimoOutput(obj,t,~,varargin)        
-            yout = {};
+            yout = [];
             x = 1;
             for i = 1:obj.numInFrame
                 InFrame = varargin{i};
                 InSize = size(InFrame);
                 for j  = 1:InSize(1)
-                    yout{x} = InFrame(j);
+                    yout(x) = InFrame(j);
                     x = x + 1;
                 end
             end
-            yout = yout';
         end
     end
 end
