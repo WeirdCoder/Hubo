@@ -7,14 +7,15 @@ classdef VelocityRBMController < MIMODrakeSystem
     methods
         function obj = VelocityRBMController(r,P,I)
             typecheck(r, 'TimeSteppingRigidBodyManipulator');
-            obj.numQ = r.getDOF; %TODO update to getNumVelocity
-            input_frame = MultiCoordinateFrame({r.getStateFrame(),CoordinateFrame('qdot_desired',obj.numQ,'q')});
-            output_frame = MultiCoordinateFrame.constructFrame(CoordinateFrame('F_control',obj.numQ,'f'));
+            numQ = r.getNumDOF(); %TODO update to getNumVelocity
+            input_frame = MultiCoordinateFrame({r.getStateFrame(),CoordinateFrame('qdot_desired',numQ,'q')});
+            output_frame = MultiCoordinateFrame.constructFrame({CoordinateFrame('F_control',numQ,'f')});
             obj@MIMODrakeSystem(0,0,input_frame,output_frame,true,true)
             obj.setOutputFrame(output_frame);
             obj.setInputFrame(input_frame);
             obj.P = P;
             obj.I = I;
+            obj.numQ = numQ;
         end
         function f_control = mimoOutput(obj,t,x,varargin)
             qqdot_curr = varargin(1);

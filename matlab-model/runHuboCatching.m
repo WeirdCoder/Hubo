@@ -36,7 +36,10 @@ ik = VelocityIKController(r1);
 clear ins outs input_select output_select;
 
 
-velocitypdr1 = r1.pdcontrol(eye(r1.getNumInputs),eye(r1.getNumInputs)); %Velocity Controlled.
+velocitypdr1 = r1.pdcontrol(8*eye(r1.getNumInputs),0.01*eye(r1.getNumInputs),[7:34]); %Velocity Controlled.
+% % velocityCon = VelocityRBMController(r1,1,0.01);
+% % velocityCon = velocityCon.setOutputFrame(r1.getInputFrame());
+% % velocitypdr1 = mimoCascade(velocityCon,r1);
 %Cascade Controllers
 
 sysHand = mimoCascade(velocitypdr1,fk);%Hubo hand and ForwardK
@@ -90,12 +93,13 @@ sys = mimoCascade(sysBall,sys,ins,[],[]);
 load hubo_fp
 r1.setInitialState(xstar);
 load hubo_catching.mat
-%x0(13:80) = xstar;
+x0(13:80) = xstar;
 %% Simulate
-[ytraj, xtraj] = sys.simulate([0 0.58],x0);
-xtraj = xtraj(1:6,13:47,7:12,48:80);
+[ytraj, xtraj] = sys.simulate([0 0.5],x0');
+load Hubo_Vicon_traj_adjIndex
+xtraj = MixedTrajectory(xtraj.trajs,newtrajIndex);
 %% Visualize
-v = v.setInputFrame(sys.getStateFrame())
+v = v.setInputFrame(xtraj.getOutputFrame())
 playback(v,xtraj,struct('slider',true));
 
 end

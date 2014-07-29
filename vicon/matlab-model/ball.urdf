@@ -12,7 +12,7 @@
         </inertial>
         <visual>
             <geometry>
-               <sphere radius="0.1"/>
+               <sphere radius="0.067"/>
             </geometry>
         </visual>
         <collision>
