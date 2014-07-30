@@ -33,7 +33,8 @@ classdef HuboQPController < MIMODrakeSystem
             obj.B(1:6) = x_hand;
             obj.B(7:12) = x_ball;
             options.display = 'off';
-            [x,fval,exitflag,output] = quadprog(obj.H,obj.f,[],[],obj.A,obj.B);
+            qpProblem = QuadraticProgram(obj.H,obj.f,[],[],obj.A,obj.B,[],[]);
+            [x,fval,exitflag,output] = qpProblem.solve();
             xdot_des = x(16:18);
         end
     end

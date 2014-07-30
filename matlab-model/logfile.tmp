@@ -1,60 +1,61 @@
 Path 4.7.03: Matlab Link
-16 row/cols, 214 non-zeros, 83.59% dense.
+7 row/cols, 37 non-zeros, 75.51% dense.
 
 Could not open options file: path.opt
 Using defaults.
 Path 4.7.03 (Mon Feb 27 19:48:03 2012)
 Written by Todd Munson, Steven Dirkse, and Michael Ferris
 
+MCPR: One:    0 Two:    0 Thr:    0 Qua:    0 WBd:    0 Fix:    1 IFx:    0
+Preprocessed size   : 6
 
 INITIAL POINT STATISTICS
-Maximum of X. . . . . . . . . .  0.0000e+00 var: (x[    1])
-Maximum of F. . . . . . . . . .  8.6158e-01 eqn: (f[    9])
-Maximum of Grad F . . . . . . .  1.3664e+01 eqn: (f[    9])
-                                            var: (x[    3])
+Maximum of X. . . . . . . . . .  0.0000e+00 var: (x[    2])
+Maximum of F. . . . . . . . . .  5.4983e-01 eqn: (f[    7])
+Maximum of Grad F . . . . . . .  1.1501e+01 eqn: (f[    7])
+                                            var: (x[    7])
 
 INITIAL JACOBIAN NORM STATISTICS
-Maximum Row Norm. . . . . . . .  1.9948e+01 eqn: (f[    9])
-Minimum Row Norm. . . . . . . .  5.0948e-02 eqn: (f[    5])
-Maximum Column Norm . . . . . .  3.7327e+01 var: (x[    3])
-Minimum Column Norm . . . . . .  1.2052e+00 var: (x[    2])
+Maximum Row Norm. . . . . . . .  1.2406e+01 eqn: (f[    7])
+Minimum Row Norm. . . . . . . .  2.7830e-01 eqn: (f[    3])
+Maximum Column Norm . . . . . .  1.2406e+01 var: (x[    7])
+Minimum Column Norm . . . . . .  2.7830e-01 var: (x[    3])
 
 Crash Log
 major  func  diff  size  residual    step       prox   (label)
-    0     0             2.3025e+00             0.0e+00 (f[    9])
-    1     4    12    10 1.8530e+00  4.1e-01    0.0e+00 (f[   15])
-    2     5     4    11 6.8900e-01  1.0e+00    0.0e+00 (f[   15])
-    3     6     2    10 9.6405e-04  1.0e+00    0.0e+00 (f[    5])
+    0     0             1.3342e+00             0.0e+00 (f[    7])
+    1     1     6     5 2.8728e-02  1.0e+00    0.0e+00 (f[    2])
+    2     2     1     6 1.1163e-16  1.0e+00    0.0e+00 (f[    7])
 pn_search terminated: no basis change.
 
 Major Iteration Log
 major minor  func  grad  residual    step  type prox    inorm  (label)
-    0     0     7     4 9.6405e-04           I 0.0e+00 9.6e-04 (f[    5])
-    1     1     8     5 6.0192e-16  1.0e+00 SO 0.0e+00 4.4e-16 (f[   10])
+    0     0     3     3 1.1163e-16           I 0.0e+00 1.1e-16 (f[    7])
 
 FINAL STATISTICS
-Inf-Norm of Complementarity . .  4.4409e-16 eqn: (f[   10])
-Inf-Norm of Normal Map. . . . .  4.4409e-16 eqn: (f[   10])
-Inf-Norm of Minimum Map . . . .  4.4409e-16 eqn: (f[   10])
-Inf-Norm of Fischer Function. .  4.4409e-16 eqn: (f[   10])
-Inf-Norm of Grad Fischer Fcn. .  4.9094e-15 eqn: (f[    4])
-Two-Norm of Grad Fischer Fcn. .  5.2767e-15
+Inf-Norm of Complementarity . .  8.6736e-18 eqn: (f[    6])
+Inf-Norm of Normal Map. . . . .  1.1102e-16 eqn: (f[    7])
+Inf-Norm of Minimum Map . . . .  1.1102e-16 eqn: (f[    7])
+Inf-Norm of Fischer Function. .  1.1102e-16 eqn: (f[    7])
+Inf-Norm of Grad Fischer Fcn. .  1.2807e-15 eqn: (f[    7])
+Two-Norm of Grad Fischer Fcn. .  1.2841e-15
 
 FINAL POINT STATISTICS
-Maximum of X. . . . . . . . . .  7.6558e-01 var: (x[    6])
-Maximum of F. . . . . . . . . .  1.4917e+00 eqn: (f[   13])
-Maximum of Grad F . . . . . . .  1.3664e+01 eqn: (f[    9])
-                                            var: (x[    3])
+Maximum of X. . . . . . . . . .  5.5706e-02 var: (x[    3])
+Maximum of F. . . . . . . . . .  1.1102e-16 eqn: (f[    7])
+Maximum of Grad F . . . . . . .  1.1501e+01 eqn: (f[    7])
+                                            var: (x[    7])
 
  ** EXIT - solution found.
 
-Major Iterations. . . . 1
-Minor Iterations. . . . 1
+Major Iterations. . . . 0
+Minor Iterations. . . . 0
 Restarts. . . . . . . . 0
-Crash Iterations. . . . 3
+Crash Iterations. . . . 2
 Gradient Steps. . . . . 0
-Function Evaluations. . 8
-Gradient Evaluations. . 5
+Function Evaluations. . 3
+Gradient Evaluations. . 3
 Basis Time. . . . . . . 0.000000
-Total Time. . . . . . . 0.010000
-Residual. . . . . . . . 6.019182e-16
+Total Time. . . . . . . 0.000000
+Residual. . . . . . . . 1.116316e-16
+Postsolved residual: 1.1163e-16

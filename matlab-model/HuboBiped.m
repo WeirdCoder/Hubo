@@ -30,10 +30,7 @@ classdef HuboBiped < TimeSteppingRigidBodyManipulator & Biped
         % could also do fixed point search here
         obj = obj.setInitialState(obj.resolveConstraints(zeros(obj.getNumStates(),1)));
       else
-        % TEMP HACK to get by resolveConstraints
-        for i=1:length(obj.manip.body), obj.manip.body(i).contact_pts=[]; end
-        obj.manip = compile(obj.manip);
-        obj = obj.setInitialState(zeros(obj.getNumStates(),1));
+        obj = obj.setInitialState(obj.resolveConstraints(zeros(obj.getNumStates(),1)));
       end
     end
 
