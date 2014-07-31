@@ -18,7 +18,7 @@ classdef HuboBiped < TimeSteppingRigidBodyManipulator & Biped
         options.floating = true;
       end
       if ~isfield(options,'terrain')
-        options.terrain = RigidBodyFlatTerrain;
+        %options.terrain = RigidBodyFlatTerrain;
       end
 
       w = warning('off','Drake:RigidBodyManipulator:UnsupportedVelocityLimits');

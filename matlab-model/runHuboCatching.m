@@ -37,7 +37,7 @@ ik = VelocityIKController(r1);
 clear ins outs input_select output_select;
 
 
-velocitypdr1 = r1.pdcontrol(6*eye(r1.getNumInputs),0.1*eye(r1.getNumInputs)); %Velocity Controlled.
+velocitypdr1 = r1.pdcontrol(0.05*eye(r1.getNumInputs),0.001*eye(r1.getNumInputs)); %Velocity Controlled.
 %Cascade Controllers
 
 sysHand = mimoCascade(velocitypdr1,fk);%Hubo hand and ForwardK
@@ -66,7 +66,7 @@ sys = mimoCascade(TrajControl,ik);
 ins(1).from_output = 1;
 ins(1).to_input = 2;
 output_select(1).system = 1;
-output_select(1).output = sysHand.getStateFrame()
+output_select(1).output = 1;
 sys_input_frame = sys.getInputFrame().frame;
 sysHand = sysHand.setOutputFrame(MultiCoordinateFrame.constructFrame({sys_input_frame{2}}));
 
@@ -74,28 +74,36 @@ sys_output_frame = sys.getOutputFrame();
 sysHand = sysHand.setInputFrame(MultiCoordinateFrame.constructFrame({sys_output_frame}));
 
 
-sys = mimoFeedback(sysHand,sys,ins,[],[],[]);
+sys = mimoFeedback(sysHand,sys,ins,[],[],output_select);
 
 clear ins outs input_select output_select;
 ins(1).from_output = 1;
 ins(1).to_input = 1;
 
+output_select(1).system = 2;
+output_select(1).output = 1;
 sys_input_frame = sys.getInputFrame().frame;
-sysBall = sysBall.setOutputFrame(MultiCoordinateFrame.constructFrame({ sys_input_frame{1}}));
+sysBall = sysBall.setOutputFrame(MultiCoordinateFrame.constructFrame({sys_input_frame{1}}));
 
-sys = mimoCascade(sysBall,sys,ins,[],[]);
+sys = mimoCascade(sysBall,sys, ins, [],output_select);
 
 %% Initialize Xload hubo_catching.mat;
 load hubo_fp
 load hubo_catching.mat
-x0(12) = 1;
-x0 = x0([1:12,19:46,53:80]);
+x0(1) = 1.4;
+x0(7) = -0.5;
+x0(9) = 10;
+x0 = x0([19:46 53:80 1:6 7:12]);
+%x0(57:62) = x0(1:6);
 %% Simulate
-[ytraj, xtraj] = sys.simulate([0 0.5],x0');
+[ytraj, xtraj] = sys.simulate([0 3],x0');
+
 %load Hubo_Vicon_traj_adjIndex
 %xtraj = MixedTrajectory(xtraj.trajs,newtrajIndex);
 %% Visualize
-v = v.setInputFrame(xtraj.getOutputFrame())
+xtraj2 = xtraj([57:62 1:28 63:68 29:56]);%[7:12 1:6 13:40 41:68]);
+xtraj = MixedTrajectory({xtraj2},{[1:68]});
+v = v.setInputFrame(xtraj.getOutputFrame());
 playback(v,xtraj,struct('slider',true));
 
 end
