@@ -29,7 +29,7 @@ classdef VelocityIKController < MIMODrakeSystem
             for i=1:length(r.getBody(obj.targetEndEffector).getContactShapes),
               endEff_pts = [endEff_pts r.getBody(obj.targetEndEffector).getContactShapes{i}.getPoints];
             end
-            obj.pts =  mean(endEff_pts,2);
+            obj.pts =  endEff_pts(:,2);
         end
         function qdot=mimoOutput(obj,t,~,varargin)        
             xdot_des = varargin{1};

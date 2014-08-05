@@ -36,21 +36,44 @@ ik = VelocityIKController(r1);
 %% Connect all modules
 clear ins outs input_select output_select;
 
-
-velocitypdr1 = r1.pdcontrol(0.05*eye(r1.getNumInputs),0.001*eye(r1.getNumInputs)); %Velocity Controlled.
+load HuboControllerGains
+velocitypdr1 = r1.pdcontrol(0.8*PGain,0.3*DGain); %Velocity Controlled.
 %Cascade Controllers
+ins = struct();
+ins(1).from_output = 1;
+ins(1).to_input = 1;
+input_select(1).system = 1;
+input_select(1).input = 1;
+output_select(1).system = 2;
+output_select(1).output = 1;
+output_select(2).system = 1;
+output_select(2).output = 1;
+sysHand = mimoCascade(velocitypdr1,fk,ins,input_select,output_select);%Hubo hand and ForwardK
+clear ins outs input_select output_select;
 
-sysHand = mimoCascade(velocitypdr1,fk);%Hubo hand and ForwardK
-sysHand = sysHand.setOutputFrame(simoHand.getInputFrame());
+simoHand = simoHand.setInputFrame(sysHand.getOutputFrame.frame{1});
 sysHand = mimoCascade(sysHand,simoHand);
-misoHand = misoHand.setInputFrame(sysHand.getOutputFrame);
-sysHand = mimoCascade(sysHand,misoHand);%Filter out rotational terms.
+misoHand = misoHand.setInputFrame(MultiCoordinateFrame(sysHand.getOutputFrame.frame(2:3)));
+ins(1).from_output = 2;
+ins(1).to_input = 1;
+ins(2).from_output = 3;
+ins(2).to_input = 2;
+sysHand = mimoCascade(sysHand,misoHand,ins);%Filter out rotational terms.
 
-
+clear ins outs input_select output_select;
 sysBall = r2;
-sysBall = sysBall.setOutputFrame(simoBall.getInputFrame());
-sysBall = mimoCascade(sysBall,simoBall);
-misoBall = misoBall.setInputFrame(sysBall.getOutputFrame);
+
+ins(1).from_output = 1;
+ins(1).to_input = 1;
+output_select(1).system = 1;
+output_select(1).output = 1;
+output_select(2).system = 2;
+output_select(2).output = 1;
+output_select(3).system = 2;
+output_select(3).output = 2;
+simoBall = simoBall.setInputFrame(sysBall.getOutputFrame());
+sysBall = mimoCascade(sysBall,simoBall,ins,[],output_select);
+misoBall = misoBall.setInputFrame(MultiCoordinateFrame(sysBall.getOutputFrame.frame(2:3)));
 sysBall = mimoCascade(sysBall,misoBall);%Filter out rotational terms.
 
 
@@ -63,12 +86,15 @@ sys = mimoCascade(TrajControl,ik);
 
 
 % Hubo and ViconBall to Controller
+
+clear ins outs input_select output_select;
 ins(1).from_output = 1;
-ins(1).to_input = 2;
+ins(1).to_input = 3;
+ins(2).from_output = 2;
+ins(2).to_input = 2;
 output_select(1).system = 1;
-output_select(1).output = 1;
-sys_input_frame = sys.getInputFrame().frame;
-sysHand = sysHand.setOutputFrame(MultiCoordinateFrame.constructFrame({sys_input_frame{2}}));
+output_select(1).output = 2;
+sysHand = sysHand.setOutputFrame(MultiCoordinateFrame(sys.getInputFrame.frame([3 2])));
 
 sys_output_frame = sys.getOutputFrame();
 sysHand = sysHand.setInputFrame(MultiCoordinateFrame.constructFrame({sys_output_frame}));
@@ -77,26 +103,30 @@ sysHand = sysHand.setInputFrame(MultiCoordinateFrame.constructFrame({sys_output_
 sys = mimoFeedback(sysHand,sys,ins,[],[],output_select);
 
 clear ins outs input_select output_select;
-ins(1).from_output = 1;
+ins(1).from_output = 2;
 ins(1).to_input = 1;
 
 output_select(1).system = 2;
 output_select(1).output = 1;
-sys_input_frame = sys.getInputFrame().frame;
-sysBall = sysBall.setOutputFrame(MultiCoordinateFrame.constructFrame({sys_input_frame{1}}));
+
+output_select(2).system = 1;
+output_select(2).output = 1;
+sys = sys.setInputFrame(sysBall.getOutputFrame.frame{2});
 
 sys = mimoCascade(sysBall,sys, ins, [],output_select);
 
 %% Initialize Xload hubo_catching.mat;
 load hubo_fp
 load hubo_catching.mat
-x0(1) = 1.4;
-x0(7) = -0.5;
-x0(9) = 10;
+x0(9) = 2;
+x0(1) = 1.1;
+x0(7) = -3;
+x0(2) = -0.201;
+x0(3) = 1.6527;
 x0 = x0([19:46 53:80 1:6 7:12]);
 %x0(57:62) = x0(1:6);
 %% Simulate
-[ytraj, xtraj] = sys.simulate([0 3],x0');
+[ytraj, xtraj] = sys.simulate([0 0.5],x0');
 
 %load Hubo_Vicon_traj_adjIndex
 %xtraj = MixedTrajectory(xtraj.trajs,newtrajIndex);
