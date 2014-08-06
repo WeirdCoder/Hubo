@@ -38,8 +38,7 @@ classdef VelocityIKController < MIMODrakeSystem
             [x,J] = obj.robot.forwardKin(kinSol,obj.targetEndEffector,obj.pts,obj.rotType); %Find Jacobian TODO Find pts
             J_pinv = pinv(J); %Find Inverse of Jacobian (Pseudo)
             qdot = J_pinv*xdot_des;
-            qdot(11:16) = 0;
-            qdot(11) = 10;
+
         end
     end
 end
