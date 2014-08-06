@@ -37,7 +37,7 @@ ik = VelocityIKController(r1);
 clear ins outs input_select output_select;
 
 load HuboControllerGains
-velocitypdr1 = r1.pdcontrol(1*PGain,0.3*DGain); %Velocity Controlled.
+velocitypdr1 = r1.pdcontrol(1*PGain,0.6*DGain); %Velocity Controlled.
 %Cascade Controllers
 ins = struct();
 ins(1).from_output = 1;
@@ -118,15 +118,15 @@ sys = mimoCascade(sysBall,sys, ins, [],output_select);
 %% Initialize Xload hubo_catching.mat;
 load hubo_fp
 load hubo_catching.mat
-x0(9) = 2.2;
-x0(1) = 1.1;
-x0(7) = -3;
+x0(9) = 2.5;
+x0(1) = 1.5;
+x0(7) = -2.5;
 x0(2) = -0.201-0.1;
-x0(3) = 1.6527+0.2;
+x0(3) = 1.6527+0.4;
 x0 = x0([19:46 53:80 1:6 7:12]);
 %x0(57:62) = x0(1:6);
 %% Simulate
-[ytraj, xtraj] = sys.simulate([0 0.5],x0');
+[ytraj, xtraj] = sys.simulate([0 3],x0');
 
 %load Hubo_Vicon_traj_adjIndex
 %xtraj = MixedTrajectory(xtraj.trajs,newtrajIndex);

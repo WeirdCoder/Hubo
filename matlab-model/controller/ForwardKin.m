@@ -25,7 +25,7 @@ classdef ForwardKin < MIMODrakeSystem
             for i=1:length(r.getBody(obj.targetEndEffector).getContactShapes),
               endEff_pts = [endEff_pts r.getBody(obj.targetEndEffector).getContactShapes{i}.getPoints];
             end
-            obj.pts =  4*endEff_pts(:,2);%mean(endEff_pts,2);
+            obj.pts =  endEff_pts(:,1);%mean(endEff_pts,2);
         end
         function x=mimoOutput(obj,t,x,varargin)        
             q = varargin{1};
