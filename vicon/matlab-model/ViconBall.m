@@ -7,7 +7,7 @@ classdef ViconBall < TimeSteppingRigidBodyManipulator
             end
             
             if nargin < 2
-                time = .0005;
+                time = .005;
             end
             if nargin < 3
                 options = struct();
