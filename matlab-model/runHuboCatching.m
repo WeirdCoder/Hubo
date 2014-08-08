@@ -42,8 +42,8 @@ PGain = zeros(28);
 DGain = zeros(28);
   PGain(15,15) = 0.08;
   DGain(15,15) = 0.00025;
-  PGain(14,14) = 0;
-  DGain(14,14) = 0.0000;
+  PGain(14,14) = 0.005;
+  DGain(14,14) = 0.0002;
 %  PGain(13,13) = 20;
 %  DGain(13,13) = 1;
 velocitypdr1 = VelocityRBMController(r1,PGain,DGain); %Velocity Controlled.  312.5*PGain,0.2*DGain)
@@ -152,5 +152,5 @@ playback(v,xtraj,struct('slider',true));
 %Analysis
 figure(1);
 targetTraj = xtraj.eval(xtraj.breaks);
-plot(targetTraj(53,:));
+plot(targetTraj([55],:)');%53
 end
