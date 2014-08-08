@@ -38,7 +38,15 @@ clear ins outs input_select output_select;
 output_select(1).system = 2;
 output_select(1).output = 1;
 load HuboControllerGains
-velocitypdr1 = VelocityRBMController(r1,0.0005*eye(28),0.9*eye(28)); %Velocity Controlled.  312.5*PGain,0.2*DGain)
+PGain = zeros(28);
+DGain = zeros(28);
+  PGain(15,15) = 0.08;
+  DGain(15,15) = 0.00025;
+  PGain(14,14) = 0;
+  DGain(14,14) = 0.0000;
+%  PGain(13,13) = 20;
+%  DGain(13,13) = 1;
+velocitypdr1 = VelocityRBMController(r1,PGain,DGain); %Velocity Controlled.  312.5*PGain,0.2*DGain)
 velocitypdr1 = velocitypdr1.setOutputFrame(r1.getInputFrame());
 velocitypdr1 = mimoFeedback(velocitypdr1,r1,[],[],[],output_select);
 clear ins outs input_select output_select;
@@ -122,7 +130,7 @@ sys = mimoCascade(sysBall,sys, ins, [],output_select);
 %% Initialize Xload hubo_catching.mat;
 load hubo_fp
 load hubo_catching.mat
-x0(9) = 4;
+x0(9) = -10;
 x0(1) = 0.0638;
 x0(7) = 0;
 x0(2) = -0.2803;
@@ -131,7 +139,7 @@ x0(81:110) = zeros(30,1);
 x0 = x0([19:46 53:80 1:6 7:12 81:109]);
 %x0(57:62) = x0(1:6);
 %% Simulate
-[ytraj, xtraj] = sys.simulate([0 0.5],x0');
+[ytraj, xtraj] = sys.simulate([0 1],x0');
 
 %load Hubo_Vicon_traj_adjIndex
 %xtraj = MixedTrajectory(xtraj.trajs,newtrajIndex);
@@ -141,4 +149,8 @@ xtraj = MixedTrajectory({xtraj2},{[1:68]});
 v = v.setInputFrame(xtraj.getOutputFrame());
 playback(v,xtraj,struct('slider',true));
 
+%Analysis
+figure(1);
+targetTraj = xtraj.eval(xtraj.breaks);
+plot(targetTraj(53,:));
 end
