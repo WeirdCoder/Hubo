@@ -24,6 +24,8 @@ classdef HuboBiped < TimeSteppingRigidBodyManipulator & Biped
       w = warning('off','Drake:RigidBodyManipulator:UnsupportedVelocityLimits');
       obj = obj@TimeSteppingRigidBodyManipulator(urdf,options.dt,options);
       obj = obj@Biped('r_foot_sole', 'l_foot_sole');
+      obj.manip = obj.manip.setGravity([0 0 0]');
+      obj = obj.compile();
       warning(w);
 
       if options.floating

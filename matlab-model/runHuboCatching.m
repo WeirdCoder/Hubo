@@ -54,22 +54,22 @@ DGain = zeros(28);
 %   PGain(10,10) = 8;
 %   DGain(10,10) = 0.01;
 
-  PGain(15,15) = 0.08;
+  PGain(15,15) = 0.008;
   DGain(15,15) = 0.00025;
   PGain(14,14) = 0.005;
   DGain(14,14) = 0.0002;
-  PGain(13,13) = 2;%1
-  DGain(13,13) = 0.0003;%0.0004
+  PGain(13,13) = 0.1;%1
+  DGain(13,13) = 0.0004;%0.0004
   PGain(12,12) = 0.1;
   DGain(12,12) = 0.0005;
-  PGain(11,11) = 18;
-  DGain(11,11) = 0.02;
-  PGain(10,10) = 18;
-  DGain(10,10) = 0.02;
+  PGain(11,11) = 0.5;
+  DGain(11,11) = 0.001;
+  PGain(10,10) = 0.5;
+  DGain(10,10) = 0.001;
 %  PGain(13,13) = 20;
 %  DGain(13,13) = 1;
 
-PGain = PGain*1;
+PGain = PGain*2.5;
 DGain = DGain*1;
 velocitypdr1 = VelocityRBMController(r1,PGain,DGain); %Velocity Controlled.  312.5*PGain,0.2*DGain)
 velocitypdr1 = velocitypdr1.setOutputFrame(r1.getInputFrame());
@@ -156,15 +156,15 @@ sys = mimoCascade(sysBall,sys, ins, [],output_select);
 load hubo_fp
 load hubo_catching.mat
 x0(9) = 2;
-x0(1) = 0.0638+1;
+x0(1) = 0.0638+3;
 x0(7) = -4;
-x0(2) = -0.2803;
-x0(3) = 1.6223-0.1;
+x0(2) = -0.2803+0.1;
+x0(3) = 1.6223+1.6;
 x0(81:110) = zeros(30,1);
 x0 = x0([19:46 53:80 1:6 7:12 81:109]);
 %x0(57:62) = x0(1:6);
 %% Simulate
-[ytraj, xtraj] = sys.simulate([0 1],x0');
+[ytraj, xtraj] = sys.simulate([0 2],x0');
 
 %load Hubo_Vicon_traj_adjIndex
 %xtraj = MixedTrajectory(xtraj.trajs,newtrajIndex);
