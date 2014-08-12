@@ -27,7 +27,7 @@ misoBall = MISOJoiner(simoBall.getOutputFrame().frame);
 
 %simoJoints = SIMOSplitter(34,[1, 6, 7,34]);
 %Primary Trajectory Merging controller
-TrajControl = NewHuboQPController(0.005,10); %UnTuned.
+TrajControl = NewHuboQPController(0.1,20); %UnTuned.
 
 %Inverse Kinectmatic to joint vels.
 ik = VelocityIKController(r1);
