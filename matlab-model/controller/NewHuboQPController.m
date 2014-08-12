@@ -50,7 +50,7 @@ classdef NewHuboQPController < MIMODrakeSystem
                     %RMS Trajectory Smoothing
                     seg1 = (i-2)*12+4:(i-2)*12+6;
                     seg2 = (i-1)*12+4:(i-1)*12+6;
-                    factor = 1;
+                    factor = 0.01;
                     H(seg1,seg1) = H(seg1,seg1) + factor*eye(3);
                     H(seg2,seg2) = H(seg2,seg2) + factor*eye(3);
                     H(seg1,seg2) = H(seg1,seg2) - factor*eye(3);
@@ -58,7 +58,7 @@ classdef NewHuboQPController < MIMODrakeSystem
                     %Distance Shortening
                     seg1 = (i-1)*12+1:(i-1)*12+3;
                     seg2 = (i-1)*12+7:(i-1)*12+9;
-                    factor = 1;
+                    factor = 100000.0;
                     H(seg1,seg1) = H(seg1,seg1) + factor*eye(3);
                     H(seg2,seg2) = H(seg2,seg2) + factor*eye(3);
                     H(seg1,seg2) = H(seg1,seg2) - factor*eye(3);
@@ -71,12 +71,21 @@ classdef NewHuboQPController < MIMODrakeSystem
                     H(seg2,seg2) = H(seg2,seg2) + factor*eye(3);
                     H(seg1,seg2) = H(seg1,seg2) - factor*eye(3);
                     H(seg2,seg1) = H(seg2,seg1) - factor*eye(3);
+                    
+                    %Velocity Stopping
+                    seg1 = (i-1)*12+4:(i-1)*12+6;
+                    seg2 = (i-1)*12+10:(i-1)*12+12;
+                    factor = 0;
+                    H(seg1,seg1) = H(seg1,seg1) + factor*eye(3);
+                    H(seg2,seg2) = H(seg2,seg2) + factor*eye(3);
+                    H(seg1,seg2) = H(seg1,seg2) - factor*eye(3);
+                    H(seg2,seg1) = H(seg2,seg1) - factor*eye(3);
                 
             end
             %End State
             seg1 = (iter-1)*12+4:(iter-1)*12+6;
             seg2 = (iter-1)*12+10:(iter-1)*12+12;
-            factor = 50;
+            factor = 0;
             H(seg1,seg1) = H(seg1,seg1) + factor*eye(3);
             H(seg2,seg2) = H(seg2,seg2) + factor*eye(3);
             H(seg1,seg2) = H(seg1,seg2) - factor*eye(3);
