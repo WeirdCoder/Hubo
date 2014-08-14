@@ -27,7 +27,7 @@ misoBall = MISOJoiner(simoBall.getOutputFrame().frame);
 
 %simoJoints = SIMOSplitter(34,[1, 6, 7,34]);
 %Primary Trajectory Merging controller
-TrajControl = NewHuboQPController(0.005,200); %UnTuned.
+TrajControl = NewHuboQPController(0.001,100); %UnTuned.
 
 %Inverse Kinectmatic to joint vels.
 ik = VelocityIKController(r1);
@@ -69,8 +69,8 @@ DGain = zeros(28);
 %  PGain(13,13) = 20;
 %  DGain(13,13) = 1;
 
-PGain = PGain*1.1;
-DGain = DGain*1;
+PGain = PGain*5;
+DGain = DGain*0.5;
 velocitypdr1 = VelocityRBMController(r1,PGain,DGain); %Velocity Controlled.  312.5*PGain,0.2*DGain)
 velocitypdr1 = velocitypdr1.setOutputFrame(r1.getInputFrame());
 velocitypdr1 = mimoFeedback(velocitypdr1,r1,[],[],[],output_select);
@@ -158,13 +158,16 @@ load hubo_catching.mat
 x0(9) = 2;
 x0(1) = 0.0638+1;
 x0(7) = -4;
-x0(2) = -0.2803-0.05;
-x0(3) = 1.6223+0.4;
+x0(2) = -0.2803-0.2;
+x0(3) = 1.6223+0.3;
 x0(81:110) = zeros(30,1);
 x0 = x0([19:46 53:80 1:6 7:12 81:109]);
 %x0(57:62) = x0(1:6);
 %% Simulate
+tic;
 [ytraj, xtraj] = sys.simulate([0 0.5],x0');
+toc;
+
 
 %load Hubo_Vicon_traj_adjIndex
 %xtraj = MixedTrajectory(xtraj.trajs,newtrajIndex);

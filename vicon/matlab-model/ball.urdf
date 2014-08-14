@@ -7,7 +7,7 @@
     </material>
     <link name="Ball">
         <inertial>
-          <mass value="1"/>
+          <mass value="0.1"/>
           <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01" />
         </inertial>
         <visual>
@@ -17,7 +17,7 @@
         </visual>
         <collision>
             <geometry>
-               <sphere radius="0.0001"/>
+               <sphere radius="0.04"/>
             </geometry>
         </collision>
     </link>

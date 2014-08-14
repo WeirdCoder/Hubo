@@ -50,7 +50,7 @@ classdef NewHuboQPController < MIMODrakeSystem
                     %RMS Trajectory Smoothing
                     seg1 = (i-2)*12+4:(i-2)*12+6;
                     seg2 = (i-1)*12+4:(i-1)*12+6;
-                    factor = 0.01;
+                    factor = 5;
                     H(seg1,seg1) = H(seg1,seg1) + factor*eye(3);
                     H(seg2,seg2) = H(seg2,seg2) + factor*eye(3);
                     H(seg1,seg2) = H(seg1,seg2) - factor*eye(3);
@@ -64,22 +64,41 @@ classdef NewHuboQPController < MIMODrakeSystem
                     H(seg1,seg2) = H(seg1,seg2) - factor*eye(3);
                     H(seg2,seg1) = H(seg2,seg1) - factor*eye(3);
                     %Velocity Shortening
-                    seg1 = (i-1)*12+4:(i-1)*12+6;
+                    pt1 = (i-1)*12+4;
+                    pt2 = (i-1)*12+6;
+                    pt3 = (i-1)*12+10;
+                    pt4 = (i-1)*12+12;
+                    factor = 1000;
+                    H(pt1,pt1) = H(pt1,pt1) + factor;
+                    H(pt2,pt2) = H(pt2,pt2) + factor;
+                    H(pt1,pt3) = H(pt1,pt3) - factor;
+                    H(pt1,pt4) = H(pt1,pt4) - factor;
+                    H(pt3,pt1) = H(pt3,pt1) - factor;
+                    H(pt4,pt1) = H(pt4,pt1) - factor;
+                    H(pt3,pt3) = H(pt3,pt3) + factor;
+                    H(pt4,pt4) = H(pt4,pt4) + factor;
+%                     %Velocity Stopping
+%                     seg1 = (i-1)*12+4:(i-1)*12+6;
+%                     seg2 = (i-1)*12+10:(i-1)*12+12;
+%                     factor = 0;
+%                     H(seg1,seg1) = H(seg1,seg1) + factor*eye(3);
+%                     H(seg2,seg2) = H(seg2,seg2) + factor*eye(3);
+%                     H(seg1,seg2) = H(seg1,seg2) - factor*eye(3);
+%                     H(seg2,seg1) = H(seg2,seg1) - factor*eye(3);
+                    %Velocity Matching
+                    seg1 = (i-2)*12+7:(i-1)*12+9;
+                    seg2 = (i-2)*12+10:(i-1)*12+12;
+                    factor = 0.05;
+                    f(seg1) = f(seg1) + factor;
+                    f(seg2) = f(seg2) + factor;
+                    %Minimize Movement
+                    seg1 = (i-1)*12+7:(i-1)*12+9;
                     seg2 = (i-1)*12+10:(i-1)*12+12;
-                    factor = 0;
+                    factor = 500000;
                     H(seg1,seg1) = H(seg1,seg1) + factor*eye(3);
-                    H(seg2,seg2) = H(seg2,seg2) + factor*eye(3);
-                    H(seg1,seg2) = H(seg1,seg2) - factor*eye(3);
-                    H(seg2,seg1) = H(seg2,seg1) - factor*eye(3);
-                    
-                    %Velocity Stopping
-                    seg1 = (i-1)*12+4:(i-1)*12+6;
-                    seg2 = (i-1)*12+10:(i-1)*12+12;
-                    factor = 0;
-                    H(seg1,seg1) = H(seg1,seg1) + factor*eye(3);
-                    H(seg2,seg2) = H(seg2,seg2) + factor*eye(3);
-                    H(seg1,seg2) = H(seg1,seg2) - factor*eye(3);
-                    H(seg2,seg1) = H(seg2,seg1) - factor*eye(3);
+                    H(seg1,seg2) = H(seg1,seg2) + factor*(-dt)*eye(3);
+                    H(seg2,seg1) = H(seg2,seg1) + factor*(-dt)*eye(3);
+                    H(seg2,seg2) = H(seg2,seg2) + factor*(dt^2)*eye(3);
                 
             end
             %End State
